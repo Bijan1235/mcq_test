@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Question</title>
+</head>
+<body>
+    <h1>Question {{ question_number }}: {{ question.question_text }}</h1>
+
+    <form method="POST" action="{% url 'submit_answer' test.id question_number %}">
+        {% csrf_token %}
+        <input type="hidden" name="question_id" value="{{ question.id }}">
+
+        <div>
+            <label>
+                <input type="radio" name="selected_option" value="A" required>
+                {{ question.option_a }}
+            </label>
+        </div>
+
+        <div>
+            <label>
+                <input type="radio" name="selected_option" value="B">
+                {{ question.option_b }}
+            </label>
+        </div>
+
+        <div>
+            <label>
+                <input type="radio" name="selected_option" value="C">
+                {{ question.option_c }}
+            </label>
+        </div>
+
+        <div>
+            <label>
+                <input type="radio" name="selected_option" value="D">
+                {{ question.option_d }}
+            </label>
+        </div>
+
+        <br>
+
+        <button type="submit">
+            {% if question_number < 10 %}
+                Next Question
+            {% else %}
+                Submit Test
+            {% endif %}
+        </button>
+    </form>
+</body>
+</html>
